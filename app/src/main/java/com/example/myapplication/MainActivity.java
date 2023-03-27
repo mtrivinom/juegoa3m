@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         buttonStartGame.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view){
-                startActivity(new Intent(MainActivity.this,GameActivity2.class));
+                //startActivity(new Intent(MainActivity.this,GameActivity2.class));
 
             }
         });
