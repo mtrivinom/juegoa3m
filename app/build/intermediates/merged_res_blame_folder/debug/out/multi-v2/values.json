@@ -1,8 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\PuzzleV8.11\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
+                {
+                    "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "7,2,3,4,5,6,8",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "293,57,105,153,201,247,336",
+                        "endColumns": "41,46,46,46,44,44,41",
+                        "endOffsets": "330,99,147,195,241,287,373"
+                    },
+                    "to": {
+                        "startLines": "492,580,581,582,593,594,597",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "23790,29783,29830,29877,30621,30666,30832",
+                        "endColumns": "41,46,46,46,44,44,41",
+                        "endOffsets": "23827,29825,29872,29919,30661,30706,30869"
+                    }
+                },
                 {
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-3\\513c3a06072697aac9fec8d66b2c19d4\\transformed\\constraintlayout-2.1.0\\res\\values\\values.xml",
                     "from": {
@@ -75,6 +92,23 @@
                         "startOffsets": "64626",
                         "endColumns": "53",
                         "endOffsets": "64675"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "45",
+                        "endOffsets": "58"
+                    },
+                    "to": {
+                        "startLines": "1186",
+                        "startColumns": "4",
+                        "startOffsets": "68768",
+                        "endColumns": "45",
+                        "endOffsets": "68809"
                     }
                 },
                 {
@@ -186,14 +220,14 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\PuzzleV8.11\\app\\src\\main\\res\\values\\themes.xml",
+                    "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\values\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
-                        "startOffsets": "100",
+                        "startOffsets": "102",
                         "endLines": "14",
                         "endColumns": "12",
-                        "endOffsets": "817"
+                        "endOffsets": "831"
                     },
                     "to": {
                         "startLines": "4017",
@@ -202,23 +236,6 @@
                         "endLines": "4029",
                         "endColumns": "12",
                         "endOffsets": "266114"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\PuzzleV8.11\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "45",
-                        "endOffsets": "57"
-                    },
-                    "to": {
-                        "startLines": "1186",
-                        "startColumns": "4",
-                        "startOffsets": "68768",
-                        "endColumns": "45",
-                        "endOffsets": "68809"
                     }
                 },
                 {
@@ -257,23 +274,6 @@
                         "endLines": "5285,5292,5303,8767,8772",
                         "endColumns": "24,24,24,24,24",
                         "endOffsets": "347269,347654,348251,523492,523762"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\PuzzleV8.11\\app\\src\\main\\res\\values\\colors.xml",
-                    "from": {
-                        "startLines": "7,2,3,4,5,6,8",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "286,55,102,149,196,241,328",
-                        "endColumns": "41,46,46,46,44,44,41",
-                        "endOffsets": "323,97,144,191,236,281,365"
-                    },
-                    "to": {
-                        "startLines": "492,580,581,582,593,594,597",
-                        "startColumns": "4,4,4,4,4,4,4",
-                        "startOffsets": "23790,29783,29830,29877,30621,30666,30832",
-                        "endColumns": "41,46,46,46,44,44,41",
-                        "endOffsets": "23827,29825,29872,29919,30661,30706,30869"
                     }
                 },
                 {
