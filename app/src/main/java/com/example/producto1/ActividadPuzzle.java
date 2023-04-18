@@ -326,7 +326,7 @@ public class ActividadPuzzle extends AppCompatActivity {
     public void checkGameOver() {
         if (isGameOver()) {
             time = getChronometer();
-            if (counter == 4){
+            if (counter == 1){
                 finalJuego();
             }else
                 continuar();
@@ -340,7 +340,7 @@ public class ActividadPuzzle extends AppCompatActivity {
         ((Chronometer) findViewById(R.id.chronometer1)).setBase(time);
         ((Chronometer) findViewById(R.id.chronometer1)).start();
     }
-    private void finalJuego(){ //put the congratulations screen
+    private void finalJuego(){
 
         Tiempo = ((Chronometer) findViewById(R.id.chronometer1)).getText().toString(); //Guardamos el tiempo en String
         Log.d("myTag",Tiempo); //Sacamos tiempo por logCat
