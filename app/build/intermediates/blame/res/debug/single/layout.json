@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_game_test.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\activity_game_test.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\puzzle_solved_ui.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\puzzle_solved_ui.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_pause_menu.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\fragment_pause_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\image_preview.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\image_preview.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\puzzle2_activity.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\puzzle2_activity.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_photo_cropping.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\activity_photo_cropping.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_puzzle.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\activity_puzzle.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_pause.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\fragment_pause.xml"
+    },
+    {
+        "merged": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "C:\\Users\\Usuario\\Desktop\\MAIDER PROYECTOS\\juegoa3m\\app\\src\\main\\res\\layout\\activity_main.xml"
+    }
+]
