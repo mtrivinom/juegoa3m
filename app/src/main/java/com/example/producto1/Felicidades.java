@@ -29,13 +29,8 @@ public class Felicidades extends ActividadPuzzle{
                     @Override
                     public void onClick(View view) {
 
-                        // get the data with the
-                        // "editText.text.toString()"
                         nombre = editText.getText().toString();
 
-                        // check whether the retrieved data is
-                        // empty or not based on the emptiness
-                        // provide the Toast Message
                         if (nombre.isEmpty()) {
                             Toast.makeText(getApplicationContext(), "Please Enter your AKA", Toast.LENGTH_SHORT).show();
                         } else {

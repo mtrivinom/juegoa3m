@@ -229,20 +229,18 @@ public class ActividadPuzzle extends AppCompatActivity {
                     path.lineTo(piezaBitmap.getWidth(), piezaBitmap.getHeight());
                 }
                 if (fila == filas - 1) {
-                    // bottom side piece
+                    // boton pieza
                     path.lineTo(offsetX, piezaBitmap.getHeight());
                 } else {
-                    // bottom bump
                     path.lineTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 3 * 2, piezaBitmap.getHeight());
                     path.cubicTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 6 * 5, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 6, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 3, piezaBitmap.getHeight());
                     path.lineTo(offsetX, piezaBitmap.getHeight());
                 }
 
                 if (columna == 0) {
-                    // left side piece
+                    // pieza derecha
                     path.close();
                 } else {
-                    // left bump
                     path.lineTo(offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3 * 2);
                     path.cubicTo(offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6 * 5, offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6, offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3);
                     path.close();
@@ -255,14 +253,14 @@ public class ActividadPuzzle extends AppCompatActivity {
                 paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
                 canvas.drawBitmap(piezaBitmap, 0, 0, paint);
 
-                // draw a white border
+                // Se crea un borde blanco
                 Paint border = new Paint();
                 border.setColor(0X80FFFFFF);
                 border.setStyle(Paint.Style.STROKE);
                 border.setStrokeWidth(8.0f);
                 canvas.drawPath(path, border);
 
-                // draw a black border
+                // Se crea un borde negro
                 border = new Paint();
                 border.setColor(0X80000000);
                 border.setStyle(Paint.Style.STROKE);
@@ -286,29 +284,27 @@ public class ActividadPuzzle extends AppCompatActivity {
         if (imageView == null || imageView.getDrawable() == null)
             return ret;
 
-        // Get image dimensions
-        // Get image matrix values and place them in an array
+        // recibe las dimensiones de la imagen
+        // recibe los valores de la matriz de la imagen y las añade en un array
         float[] f = new float[9];
         imageView.getImageMatrix().getValues(f);
 
-        // Extract the scale values using the constants (if aspect ratio maintained, scaleX == scaleY)
+        // Saca los valores usando constantes (si el aspect ratio se mantuvo, scaleX == scaleY)
         final float scaleX = f[Matrix.MSCALE_X];
         final float scaleY = f[Matrix.MSCALE_Y];
 
-        // Get the drawable (could also get the bitmap behind the drawable and getWidth/getHeight)
         final Drawable d = imageView.getDrawable();
         final int origW = d.getIntrinsicWidth();
         final int origH = d.getIntrinsicHeight();
 
-        // Calculate the actual dimensions
+        // Calcula las dimensiones
         final int actW = Math.round(origW * scaleX);
         final int actH = Math.round(origH * scaleY);
 
         ret[2] = actW;
         ret[3] = actH;
 
-        // Get image position
-        // We assume that the image is centered into ImageView
+        // Agarra la posicion de la imagen
         int imgViewW = imageView.getWidth();
         int imgViewH = imageView.getHeight();
 
