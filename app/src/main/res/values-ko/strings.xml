@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="registrar">등록하려면</string>
+    <string name="acceder">액세스</string>
+    <string name="google">Google</string>
+    <string name="congratulations_put_your_name_or_aka_please">축하합니다! 이름이나 AKA를 입력하세요.</string>
+    <string name="submit">제출하다</string>
+    <string name="menu">메뉴</string>
+    <string name="ranking">순위</string>
+    <string name="introduce_tu_nombre">당신의 이름을 소개합니다:</string>
+    <string name="aceptar">수용하다</string>
+    <string name="arcade">아케이드</string>
+    <string name="multiplayer">멀티플레이어</string>
+    <string name="help">돕다</string>
+    <string name="rankingMenu">순위</string>
+    <string name="nivel">니벨</string>
+</resources>

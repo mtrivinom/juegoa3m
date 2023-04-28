@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Producto1</string>
+    <string name="app_name" translatable="false">PuzzleV2</string>
+    <string name="default_web_client_id2" translatable="false">444556204733-aom5dan6osjkqcv0l0j5leu6snged3os.apps.googleusercontent.com</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="acceder">ACCEDER</string>
+    <string name="google">Google</string>
+    <string name="congratulations_put_your_name_or_aka_please">Congratulations! Put your name or AKA please</string>
+    <string name="submit">SUBMIT</string>
+    <string name="menu">MENU</string>
+    <string name="ranking">Ranking</string>
+    <string name="introduce_tu_nombre">Introduce tu nombre:</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="arcade">ARCADE</string>
+    <string name="multiplayer">MULTIPLAYER</string>
+    <string name="help">HELP</string>
+    <string name="rankingMenu">RANKING</string>
+    <string name="nivel">Nivel</string>
 </resources>

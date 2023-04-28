@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">بريد الالكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="registrar">كلمة المرور</string>
+    <string name="acceder">تسجيل الدخول</string>
+    <string name="google">Google</string>
+    <string name="congratulations_put_your_name_or_aka_please">تهانينا! ضع اسمك أو AKA من فضلك</string>
+    <string name="submit">إرسال</string>
+    <string name="menu">قائمة</string>
+    <string name="ranking">Ranking</string>
+    <string name="introduce_tu_nombre">تصنيف</string>
+    <string name="aceptar">قبول</string>
+    <string name="arcade">ممر</string>
+    <string name="multiplayer">متعدد اللاعبين</string>
+    <string name="help">مساعدة</string>
+    <string name="rankingMenu">تصنيف</string>
+    <string name="nivel">مستوى</string>
+</resources>

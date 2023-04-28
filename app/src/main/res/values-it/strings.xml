@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="registrar">REGISTRARE</string>
+    <string name="acceder">ACCEDERE</string>
+    <string name="google">Google</string>
+    <string name="congratulations_put_your_name_or_aka_please">Congratulazioni! Metti il tuo nome o alias per favore</string>
+    <string name="submit">INVIA</string>
+    <string name="menu">MENU</string>
+    <string name="ranking">CLASSIFICA</string>
+    <string name="introduce_tu_nombre">Introduci il tuo nome:</string>
+    <string name="aceptar">Accettare</string>
+    <string name="arcade">ARCADE</string>
+    <string name="multiplayer">MULTIPLAYER</string>
+    <string name="help">AIUTO</string>
+    <string name="rankingMenu">CLASSIFICA</string>
+    <string name="nivel">Livello</string>
+</resources>

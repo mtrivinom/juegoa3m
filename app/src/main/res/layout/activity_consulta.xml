@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_ranking" >
+    android:background="@drawable/fondomenu" >
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ranking"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
+        android:text="@string/ranking"
+        android:textColor="#ff1a1a"
+        android:textSize="25sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,5 +27,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
