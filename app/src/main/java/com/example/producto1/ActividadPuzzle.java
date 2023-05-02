@@ -16,6 +16,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.ExifInterface;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Chronometer;
@@ -35,6 +40,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ActividadPuzzle extends AppCompatActivity {
 
+    String mPathFoto;
+
+    String mFotoUri;
     ArrayList<PiezaPuzzle> piezas;
 
     int counter = 0;
@@ -42,6 +50,10 @@ public class ActividadPuzzle extends AppCompatActivity {
     static long time = 0;
 
     String Tiempo;
+
+    SoundPool soundPool;
+
+    int move, finaljuego, option;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -56,6 +68,24 @@ public class ActividadPuzzle extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");
+        mPathFoto = intent.getStringExtra("FilePath");
+        mFotoUri = intent.getStringExtra("mFotoUri");
+        Bundle datos = this.getIntent().getExtras();
+        option = datos.getInt("opcion_audio");
+
+        if (Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage
+                    (AudioAttributes.USAGE_ASSISTANCE_SONIFICATION).setContentType
+                    ( AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
+            soundPool = new SoundPool.Builder().setMaxStreams(3).setAudioAttributes(audioAttributes).build();
+        }
+        else {
+            soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        }
+        move = soundPool.load(this, R.raw.move, 1);
+        finaljuego = soundPool.load(this, R.raw.finalgame, 1);
+
 
         imageView.post(new Runnable() {
             @Override
@@ -229,18 +259,20 @@ public class ActividadPuzzle extends AppCompatActivity {
                     path.lineTo(piezaBitmap.getWidth(), piezaBitmap.getHeight());
                 }
                 if (fila == filas - 1) {
-                    // boton pieza
+                    // bottom side piece
                     path.lineTo(offsetX, piezaBitmap.getHeight());
                 } else {
+                    // bottom bump
                     path.lineTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 3 * 2, piezaBitmap.getHeight());
                     path.cubicTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 6 * 5, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 6, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 3, piezaBitmap.getHeight());
                     path.lineTo(offsetX, piezaBitmap.getHeight());
                 }
 
                 if (columna == 0) {
-                    // pieza derecha
+                    // left side piece
                     path.close();
                 } else {
+                    // left bump
                     path.lineTo(offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3 * 2);
                     path.cubicTo(offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6 * 5, offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6, offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3);
                     path.close();
@@ -253,14 +285,14 @@ public class ActividadPuzzle extends AppCompatActivity {
                 paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
                 canvas.drawBitmap(piezaBitmap, 0, 0, paint);
 
-                // Se crea un borde blanco
+                // draw a white border
                 Paint border = new Paint();
                 border.setColor(0X80FFFFFF);
                 border.setStyle(Paint.Style.STROKE);
                 border.setStrokeWidth(8.0f);
                 canvas.drawPath(path, border);
 
-                // Se crea un borde negro
+                // draw a black border
                 border = new Paint();
                 border.setColor(0X80000000);
                 border.setStyle(Paint.Style.STROKE);
@@ -284,27 +316,29 @@ public class ActividadPuzzle extends AppCompatActivity {
         if (imageView == null || imageView.getDrawable() == null)
             return ret;
 
-        // recibe las dimensiones de la imagen
-        // recibe los valores de la matriz de la imagen y las añade en un array
+        // Get image dimensions
+        // Get image matrix values and place them in an array
         float[] f = new float[9];
         imageView.getImageMatrix().getValues(f);
 
-        // Saca los valores usando constantes (si el aspect ratio se mantuvo, scaleX == scaleY)
+        // Extract the scale values using the constants (if aspect ratio maintained, scaleX == scaleY)
         final float scaleX = f[Matrix.MSCALE_X];
         final float scaleY = f[Matrix.MSCALE_Y];
 
+        // Get the drawable (could also get the bitmap behind the drawable and getWidth/getHeight)
         final Drawable d = imageView.getDrawable();
         final int origW = d.getIntrinsicWidth();
         final int origH = d.getIntrinsicHeight();
 
-        // Calcula las dimensiones
+        // Calculate the actual dimensions
         final int actW = Math.round(origW * scaleX);
         final int actH = Math.round(origH * scaleY);
 
         ret[2] = actW;
         ret[3] = actH;
 
-        // Agarra la posicion de la imagen
+        // Get image position
+        // We assume that the image is centered into ImageView
         int imgViewW = imageView.getWidth();
         int imgViewH = imageView.getHeight();
 
@@ -353,4 +387,75 @@ public class ActividadPuzzle extends AppCompatActivity {
         }
         return true;
     }
+
+    private void setPicFromPath(String mCurrentPhotoPath, ImageView imageView) {
+
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Bitmap rotatedBitmap = bitmap;
+
+
+        try {
+            ExifInterface ei = new ExifInterface(mCurrentPhotoPath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotatedBitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotatedBitmap = rotateImage(bitmap, 180);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotatedBitmap = rotateImage(bitmap, 270);
+                    break;
+            }
+        } catch (IOException e) {
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        imageView.setImageBitmap(rotatedBitmap);
+    }
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        playPause(4);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playPause(option);
+    }
+
+    public void playPause(int opcion){
+
+        Intent intent = new Intent (ActividadPuzzle.this, MediaPlayerService.class);
+        int option = opcion;
+        intent.putExtra ( "option", option);
+        startService(intent);
+    }
+
 }
