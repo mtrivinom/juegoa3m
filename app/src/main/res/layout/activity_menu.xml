@@ -4,53 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="@drawable/background_menu"
     tools:context=".MenuActividad">
 
 
     <Button
         android:id="@+id/btn_arcade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="182dp"
+        android:layout_height="53dp"
         android:layout_marginStart="158dp"
         android:layout_marginEnd="159dp"
-        android:layout_marginBottom="496dp"
-        android:text="ARCADE"
+        android:layout_marginBottom="380dp"
         android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-black"
+        android:text="ARCADE"
+        android:textSize="60px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btn_ayuda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_button"
-        android:layout_marginStart="166dp"
-        android:layout_marginEnd="166dp"
-        android:layout_marginBottom="180dp"
-        android:text="HELP"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
-        app:layout_constraintVertical_bias="0.295" />
 
     <Button
         android:id="@+id/btn_ranking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="RANKING"
+        android:textSize="50px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
+        app:layout_constraintVertical_bias="0.993" />
+
+    <Button
+        android:id="@+id/btn_ayuda"
+        android:layout_width="163dp"
+        android:layout_height="51dp"
         android:layout_marginStart="166dp"
         android:layout_marginEnd="166dp"
         android:layout_marginBottom="180dp"
-        android:text="RANKING"
         android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="HELP"
+        android:textSize="50px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.677" />
+
+    <Button
+        android:id="@+id/btn_seleccionar"
+        android:layout_width="162dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Seleccionar"
+        android:textSize="50px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
+        app:layout_constraintVertical_bias="0.189" />
+
+
+    <Button
+        android:id="@+id/btn_musicOn"
+        android:layout_width="93dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="MusicOFF"
+        android:textSize="40px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_musicOn2"
+        android:layout_width="93dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="MusicON"
+        android:textSize="40px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.ExifInterface;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Chronometer;
@@ -35,6 +40,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ActividadPuzzle extends AppCompatActivity {
 
+    String mPathFoto;
+
+    String mFotoUri;
     ArrayList<PiezaPuzzle> piezas;
 
     int counter = 0;
@@ -42,6 +50,10 @@ public class ActividadPuzzle extends AppCompatActivity {
     static long time = 0;
 
     String Tiempo;
+
+    SoundPool soundPool;
+
+    int move, finaljuego, option;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -56,6 +68,24 @@ public class ActividadPuzzle extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");
+        mPathFoto = intent.getStringExtra("FilePath");
+        mFotoUri = intent.getStringExtra("mFotoUri");
+        Bundle datos = this.getIntent().getExtras();
+        option = datos.getInt("opcion_audio");
+
+        if (Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage
+                    (AudioAttributes.USAGE_ASSISTANCE_SONIFICATION).setContentType
+                    ( AudioAttributes.CONTENT_TYPE_SONIFICATION).build();
+            soundPool = new SoundPool.Builder().setMaxStreams(3).setAudioAttributes(audioAttributes).build();
+        }
+        else {
+            soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        }
+        move = soundPool.load(this, R.raw.move, 1);
+        finaljuego = soundPool.load(this, R.raw.finalgame, 1);
+
 
         imageView.post(new Runnable() {
             @Override
@@ -63,7 +93,10 @@ public class ActividadPuzzle extends AppCompatActivity {
                 startChronometer();
                 if (assetName !=null) {
                     setPicFromAsset(assetName, imageView);
+                } else if (mPathFoto != null) {
+                    setPicFromPath(mPathFoto, imageView);
                 }
+
                 piezas = splitImage(4 + counter * 2, 2 + counter, 2 + counter); //Dificultad
                 TouchListener touchListener = new TouchListener(ActividadPuzzle.this);
                 Collections.shuffle(piezas);
@@ -357,4 +390,75 @@ public class ActividadPuzzle extends AppCompatActivity {
         }
         return true;
     }
+
+    private void setPicFromPath(String mCurrentPhotoPath, ImageView imageView) {
+
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
+
+
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Bitmap rotatedBitmap = bitmap;
+
+
+        try {
+            ExifInterface ei = new ExifInterface(mCurrentPhotoPath);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotatedBitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotatedBitmap = rotateImage(bitmap, 180);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotatedBitmap = rotateImage(bitmap, 270);
+                    break;
+            }
+        } catch (IOException e) {
+            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        imageView.setImageBitmap(rotatedBitmap);
+    }
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        playPause(4);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playPause(option);
+    }
+
+    public void playPause(int opcion){
+
+        Intent intent = new Intent (ActividadPuzzle.this, MediaPlayerService.class);
+        int option = opcion;
+        intent.putExtra ( "option", option);
+        startService(intent);
+    }
+
 }
