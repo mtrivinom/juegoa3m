@@ -51,7 +51,7 @@ public class MediaPlayerService  extends Service{
             mediaPlayer.start();
         }else if (option == 6) {
 
-            patchSoundString = intent.getStringExtra ("cancacion");
+            patchSoundString = intent.getStringExtra ("cancion");
             Log.d("patch string", String.valueOf ( patchSoundString ) );
             patchSound = Uri.parse(patchSoundString);
             mediaPlayer = MediaPlayer.create ( this, patchSound);

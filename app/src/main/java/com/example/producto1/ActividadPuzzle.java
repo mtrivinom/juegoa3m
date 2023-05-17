@@ -20,6 +20,7 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.ExifInterface;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -95,6 +96,8 @@ public class ActividadPuzzle extends AppCompatActivity {
                     setPicFromAsset(assetName, imageView);
                 } else if (mPathFoto != null) {
                     setPicFromPath(mPathFoto, imageView);
+                } else if (mFotoUri !=null) {
+                    imageView.setImageURI(Uri.parse(mFotoUri));
                 }
 
                 piezas = splitImage(4 + counter * 2, 2 + counter, 2 + counter); //Dificultad

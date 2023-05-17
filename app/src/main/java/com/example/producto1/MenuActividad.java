@@ -89,7 +89,7 @@ public class MenuActividad extends AppCompatActivity {
         int option = opcion;
         if(option == 6){
             String patchString = soundUri.toString();
-            intent.putExtra ( "cancacion", patchString);
+            intent.putExtra ( "cancion", patchString);
 
         }
         intent.putExtra ( "option", option);
