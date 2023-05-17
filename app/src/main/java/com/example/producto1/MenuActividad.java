@@ -25,7 +25,6 @@ public class MenuActividad extends AppCompatActivity {
         btn_ranking = (Button) findViewById(R.id.btn_ranking);
         btn_playpause = (Button) findViewById(R.id.btn_musicOn);
         btn_playplay = (Button) findViewById(R.id.btn_musicOn2);
-        btn_seleccionar = (Button) findViewById(R.id.btn_seleccionar);
 
         opcion = 1;
 
@@ -67,12 +66,6 @@ public class MenuActividad extends AppCompatActivity {
                 playPause(opcion);
             }
         });
-        btn_seleccionar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PickFile();
-            }
-        });
     }
     @Override
     protected void onPause() {
@@ -94,19 +87,6 @@ public class MenuActividad extends AppCompatActivity {
         }
         intent.putExtra ( "option", option);
         startService(intent);
-    }
-    protected void PickFile(){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("audio/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        try{
-            startActivityForResult(
-                    Intent.createChooser(
-                            intent, "Instale un gestor de archivos"),
-                    PICKER);
-        }catch (android.content.ActivityNotFoundException ex){
-
-        }
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
