@@ -33,12 +33,19 @@ public class MediaPlayerService  extends Service{
         return null;
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mediaPlayer = MediaPlayer.create(this, R.raw.music); // Archivo de música
+        mediaPlayer.setLooping(true);
+    }
+
     public int onStartCommand(Intent intent, int flags, int startId){
         option = intent.getIntExtra ("option", option);
         Log.d("tag", String.valueOf ( option ) );
         if (option == 1) {
-            mediaPlayer = MediaPlayer.create ( this, R.raw.game1 );
-            mediaPlayer.setLooping ( true );
+            mediaPlayer.start();
+            return START_STICKY;
 
         }else if (option == 3) {
             mediaPlayer.stop();
