@@ -388,9 +388,11 @@ public class ActividadPuzzle extends AppCompatActivity {
     private boolean isGameOver() {
         for (PiezaPuzzle pieza : piezas) {
             if (pieza.canMove) {
+                soundPool.play(move, 1, 1, 0, 0, 1);
                 return false;
             }
         }
+        soundPool.play(finaljuego, 1, 1, 0, 0, 1);
         return true;
     }
 
