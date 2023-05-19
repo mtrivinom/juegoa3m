@@ -195,11 +195,21 @@ public class ActividadPuzzle extends AppCompatActivity {
         }
     }
 
+
     private ArrayList<PiezaPuzzle> splitImage(int numPiezas, int filas, int columnas){
         ImageView imageView = findViewById(R.id.imageView);
         ArrayList<PiezaPuzzle> piezas = new ArrayList<>(numPiezas);
 
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
+        //POR SI HAY ERROR.
+        if (drawable == null) {
+            // Mostrar mensaje de error
+            Toast.makeText(getApplicationContext(), "Ha habido un error", Toast.LENGTH_SHORT).show();
+            // Volver al menú principal (usar Intent para iniciar la actividad principal)
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            return piezas;
+        }
         Bitmap bitmap = drawable.getBitmap();
 
         //Coger el bitmap escalado de la imagen

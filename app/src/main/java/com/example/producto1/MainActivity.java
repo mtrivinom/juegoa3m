@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_GALLERY = 4;
     int opcion;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
