@@ -202,128 +202,129 @@ public class ActividadPuzzle extends AppCompatActivity {
 
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         //POR SI HAY ERROR.
-        if (drawable == null) {
-            // Mostrar mensaje de error
-            Toast.makeText(getApplicationContext(), "Ha habido un error", Toast.LENGTH_SHORT).show();
-            // Volver al menú principal (usar Intent para iniciar la actividad principal)
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            return piezas;
-        }
-        Bitmap bitmap = drawable.getBitmap();
+            if (drawable == null) {
+                // Mostrar mensaje de error
+                Toast.makeText(getApplicationContext(), "Ha habido un error", Toast.LENGTH_SHORT).show();
+                // Volver al menú principal
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return piezas;
+            } else {
+                Bitmap bitmap = drawable.getBitmap();
 
-        //Coger el bitmap escalado de la imagen
-        int[] dimensions = getBitmapPositionInsideImageView(imageView);
-        int scaledBitmapLeft = dimensions[0];
-        int scaledBitmapTop = dimensions[1];
-        int scaledBitmapWidth = dimensions[2];
-        int scaledBitmapHeight = dimensions[3];
+                //Coger el bitmap escalado de la imagen
+                int[] dimensions = getBitmapPositionInsideImageView(imageView);
+                int scaledBitmapLeft = dimensions[0];
+                int scaledBitmapTop = dimensions[1];
+                int scaledBitmapWidth = dimensions[2];
+                int scaledBitmapHeight = dimensions[3];
 
-        int croppedImageWidth = scaledBitmapWidth - 2 * abs(scaledBitmapLeft);
-        int croppedImageHeight = scaledBitmapHeight - 2 * abs(scaledBitmapTop);
+                int croppedImageWidth = scaledBitmapWidth - 2 * abs(scaledBitmapLeft);
+                int croppedImageHeight = scaledBitmapHeight - 2 * abs(scaledBitmapTop);
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledBitmapWidth, scaledBitmapHeight, true);
-        Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledBitmapWidth, scaledBitmapHeight, true);
+                Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);
 
-        //Calcular el ancho y la altura de las piezas
-        int anchoPieza = croppedImageWidth / columnas;
-        int altoPieza = croppedImageHeight / filas;
+                //Calcular el ancho y la altura de las piezas
+                int anchoPieza = croppedImageWidth / columnas;
+                int altoPieza = croppedImageHeight / filas;
 
-        //Crear cada bitmap de las piezas y añadir al Array resultante
-        int yCoord = 0;
-        for(int fila = 0; fila < filas; fila++){
-            int xCoord = 0;
-            for(int columna = 0; columna < columnas; columna++){
-                int offsetX = 0;
-                int offsetY = 0;
-                if(columna > 0) {
-                    offsetX = anchoPieza / 3;
+                //Crear cada bitmap de las piezas y añadir al Array resultante
+                int yCoord = 0;
+                for (int fila = 0; fila < filas; fila++) {
+                    int xCoord = 0;
+                    for (int columna = 0; columna < columnas; columna++) {
+                        int offsetX = 0;
+                        int offsetY = 0;
+                        if (columna > 0) {
+                            offsetX = anchoPieza / 3;
+                        }
+                        if (fila > 0) {
+                            offsetY = altoPieza / 3;
+                        }
+
+                        Bitmap piezaBitmap = Bitmap.createBitmap(croppedBitmap, xCoord - offsetX, yCoord - offsetY, anchoPieza + offsetX, altoPieza + offsetY);
+                        PiezaPuzzle pieza = new PiezaPuzzle(getApplicationContext());
+                        pieza.setImageBitmap(piezaBitmap);
+                        pieza.xCoord = xCoord - offsetX + imageView.getLeft();
+                        pieza.yCoord = yCoord - offsetY + imageView.getTop();
+                        pieza.pieceWidth = anchoPieza + offsetX;
+                        pieza.pieceHeight = altoPieza + offsetY;
+
+                        Bitmap piezaPuzzle = Bitmap.createBitmap(anchoPieza + offsetX, altoPieza + offsetY, Bitmap.Config.ARGB_8888);
+
+                        int bumpSize = altoPieza / 4;
+                        Canvas canvas = new Canvas(piezaPuzzle);
+                        Path path = new Path();
+                        path.moveTo(offsetX, offsetY);
+                        if (fila == 0) {
+                            //Pieza de arriba
+                            path.lineTo(piezaBitmap.getWidth(), offsetY);
+                        } else {
+                            path.lineTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 3, offsetY);
+                            path.cubicTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 6, offsetY - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 6 * 5, offsetY - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 3 * 2, offsetY);
+                            path.lineTo(piezaBitmap.getWidth(), offsetY);
+                        }
+
+                        if (columna == columnas - 1) {
+                            //Pieca derecha
+                            path.lineTo(piezaBitmap.getWidth(), piezaBitmap.getHeight());
+                        } else {
+                            path.lineTo(piezaBitmap.getWidth(), offsetY + (piezaBitmap.getHeight() - offsetY) / 3);
+                            path.cubicTo(piezaBitmap.getWidth() - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6, piezaBitmap.getWidth() - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6 * 5, piezaBitmap.getWidth(), offsetY + (piezaBitmap.getHeight() - offsetY) / 3 * 2);
+                            path.lineTo(piezaBitmap.getWidth(), piezaBitmap.getHeight());
+                        }
+                        if (fila == filas - 1) {
+                            // bottom side piece
+                            path.lineTo(offsetX, piezaBitmap.getHeight());
+                        } else {
+                            // bottom bump
+                            path.lineTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 3 * 2, piezaBitmap.getHeight());
+                            path.cubicTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 6 * 5, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 6, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 3, piezaBitmap.getHeight());
+                            path.lineTo(offsetX, piezaBitmap.getHeight());
+                        }
+
+                        if (columna == 0) {
+                            // left side piece
+                            path.close();
+                        } else {
+                            // left bump
+                            path.lineTo(offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3 * 2);
+                            path.cubicTo(offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6 * 5, offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6, offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3);
+                            path.close();
+                        }
+                        Paint paint = new Paint();
+                        paint.setColor(0XFF000000);
+                        paint.setStyle(Paint.Style.FILL);
+
+                        canvas.drawPath(path, paint);
+                        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+                        canvas.drawBitmap(piezaBitmap, 0, 0, paint);
+
+                        // draw a white border
+                        Paint border = new Paint();
+                        border.setColor(0X80FFFFFF);
+                        border.setStyle(Paint.Style.STROKE);
+                        border.setStrokeWidth(8.0f);
+                        canvas.drawPath(path, border);
+
+                        // draw a black border
+                        border = new Paint();
+                        border.setColor(0X80000000);
+                        border.setStyle(Paint.Style.STROKE);
+                        border.setStrokeWidth(3.0f);
+                        canvas.drawPath(path, border);
+
+                        // set the resulting bitmap to the piece
+                        pieza.setImageBitmap(piezaPuzzle);
+
+                        piezas.add(pieza);
+                        xCoord += anchoPieza;
+                    }
+                    yCoord += altoPieza;
                 }
-                if ( fila > 0) {
-                    offsetY = altoPieza / 3;
-                }
-
-                Bitmap piezaBitmap = Bitmap.createBitmap(croppedBitmap, xCoord - offsetX, yCoord - offsetY, anchoPieza + offsetX, altoPieza + offsetY);
-                PiezaPuzzle pieza = new PiezaPuzzle(getApplicationContext());
-                pieza.setImageBitmap(piezaBitmap);
-                pieza.xCoord = xCoord - offsetX + imageView.getLeft();
-                pieza.yCoord = yCoord - offsetY + imageView.getTop();
-                pieza.pieceWidth = anchoPieza + offsetX;
-                pieza.pieceHeight = altoPieza + offsetY;
-
-                Bitmap piezaPuzzle = Bitmap.createBitmap(anchoPieza + offsetX, altoPieza + offsetY, Bitmap.Config.ARGB_8888);
-
-                int bumpSize = altoPieza / 4;
-                Canvas canvas = new Canvas(piezaPuzzle);
-                Path path = new Path();
-                path.moveTo(offsetX, offsetY);
-                if (fila == 0) {
-                    //Pieza de arriba
-                    path.lineTo(piezaBitmap.getWidth(), offsetY);
-                } else {
-                    path.lineTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 3, offsetY);
-                    path.cubicTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 6, offsetY - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 6 * 5, offsetY - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 3 * 2, offsetY);
-                    path.lineTo(piezaBitmap.getWidth(), offsetY);
-                }
-
-                if (columna == columnas - 1){
-                    //Pieca derecha
-                    path.lineTo(piezaBitmap.getWidth(), piezaBitmap.getHeight());
-                } else {
-                    path.lineTo(piezaBitmap.getWidth(), offsetY + (piezaBitmap.getHeight() - offsetY) / 3);
-                    path.cubicTo(piezaBitmap.getWidth() - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6, piezaBitmap.getWidth() - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6 * 5, piezaBitmap.getWidth(), offsetY + (piezaBitmap.getHeight() - offsetY) / 3 * 2);
-                    path.lineTo(piezaBitmap.getWidth(), piezaBitmap.getHeight());
-                }
-                if (fila == filas - 1) {
-                    // bottom side piece
-                    path.lineTo(offsetX, piezaBitmap.getHeight());
-                } else {
-                    // bottom bump
-                    path.lineTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 3 * 2, piezaBitmap.getHeight());
-                    path.cubicTo(offsetX + (piezaBitmap.getWidth() - offsetX) / 6 * 5, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 6, piezaBitmap.getHeight() - bumpSize, offsetX + (piezaBitmap.getWidth() - offsetX) / 3, piezaBitmap.getHeight());
-                    path.lineTo(offsetX, piezaBitmap.getHeight());
-                }
-
-                if (columna == 0) {
-                    // left side piece
-                    path.close();
-                } else {
-                    // left bump
-                    path.lineTo(offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3 * 2);
-                    path.cubicTo(offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6 * 5, offsetX - bumpSize, offsetY + (piezaBitmap.getHeight() - offsetY) / 6, offsetX, offsetY + (piezaBitmap.getHeight() - offsetY) / 3);
-                    path.close();
-                }
-                Paint paint = new Paint();
-                paint.setColor(0XFF000000);
-                paint.setStyle(Paint.Style.FILL);
-
-                canvas.drawPath(path, paint);
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-                canvas.drawBitmap(piezaBitmap, 0, 0, paint);
-
-                // draw a white border
-                Paint border = new Paint();
-                border.setColor(0X80FFFFFF);
-                border.setStyle(Paint.Style.STROKE);
-                border.setStrokeWidth(8.0f);
-                canvas.drawPath(path, border);
-
-                // draw a black border
-                border = new Paint();
-                border.setColor(0X80000000);
-                border.setStyle(Paint.Style.STROKE);
-                border.setStrokeWidth(3.0f);
-                canvas.drawPath(path, border);
-
-                // set the resulting bitmap to the piece
-                pieza.setImageBitmap(piezaPuzzle);
-
-                piezas.add(pieza);
-                xCoord += anchoPieza;
+                return piezas;
             }
-            yCoord += altoPieza;
-        }
-        return piezas;
 
     }
     private int[] getBitmapPositionInsideImageView(ImageView imageView) {
