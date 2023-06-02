@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MenuActividad extends AppCompatActivity {
-    Button btn_vArcade, btn_ayuda, btn_ranking;
+    Button btn_vArcade, btn_ayuda, btn_ranking, btn_login;
 
 
     @Override
@@ -18,6 +18,7 @@ public class MenuActividad extends AppCompatActivity {
         btn_vArcade = (Button) findViewById(R.id.btn_arcade);
         btn_ayuda = (Button) findViewById(R.id.btn_ayuda);
         btn_ranking = (Button) findViewById(R.id.btn_ranking);
+        btn_login = (Button) findViewById(R.id.btn_login);
 
         btn_vArcade.setOnClickListener(new View.OnClickListener() {
             @Override
