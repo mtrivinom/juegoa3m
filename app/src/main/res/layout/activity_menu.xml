@@ -42,24 +42,6 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/btn_login"
-        android:layout_width="162dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="166dp"
-        android:layout_marginEnd="166dp"
-        android:layout_marginBottom="180dp"
-        android:background="@drawable/custom_button"
-        android:fontFamily="sans-serif-condensed"
-        android:text="FIREBASE LOGIN"
-        android:textSize="50px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
-        app:layout_constraintVertical_bias="0.206" />
-
-    <Button
         android:id="@+id/btn_ayuda"
         android:layout_width="163dp"
         android:layout_height="51dp"
@@ -75,5 +57,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_arcade"
         app:layout_constraintVertical_bias="0.57" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="163dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="166dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="180dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Logout"
+        android:textSize="50px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ranking"
+        app:layout_constraintVertical_bias="0.0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_details"
+            tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

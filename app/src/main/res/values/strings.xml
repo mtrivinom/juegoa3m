@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Producto1</string>
+    <string name="login">Login</string>
+    <string name="Click_registrarse">Haz click para registrarte</string>
+    <string name="contraseña">contraseña</string>
+    <string name="emailtest">email</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="clic_login">Click para logearte</string>
 </resources>
