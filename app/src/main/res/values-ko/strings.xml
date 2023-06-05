@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">제품1</string>
+    <string name="login">로그인</string>
+    <string name="contraseña">비밀번호</string>
+    <string name="emailtest">이메일</string>
+    <string name="registrarse">체크인</string>
+    <string name="clic_login">로그인하려면 클릭하세요</string>
+    <string name="click_to_login">클릭_투_로그인</string>
+    <string name="Click_registrarse">클릭하여 등록</string>
+    <string name="felicidades_introduce_tu_nombre">축하해요! 당신의 이름을 소개합니다</string>
+    <string name="submit">제출하다</string>
+    <string name="menu">메뉴</string>
+    <string name="arcade">아케이드</string>
+    <string name="ranking">순위</string>
+    <string name="help">돕다</string>
+    <string name="logout">로그 아웃</string>
+    <string name="nivel">수준</string>
+</resources>

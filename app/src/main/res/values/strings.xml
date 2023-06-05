@@ -1,9 +1,18 @@
 <resources>
     <string name="app_name">Producto1</string>
     <string name="login">Login</string>
-    <string name="Click_registrarse">Haz click para registrarte</string>
     <string name="contraseña">contraseña</string>
     <string name="emailtest">email</string>
     <string name="registrarse">Registrarse</string>
     <string name="clic_login">Click para logearte</string>
+    <string name="click_to_login">click_to_login</string>
+    <string name="Click_registrarse">Click para registrarse</string>
+    <string name="felicidades_introduce_tu_nombre">¡Felicidades! Introduce tu nombre</string>
+    <string name="submit">SUBMIT</string>
+    <string name="menu">MENU</string>
+    <string name="arcade">ARCADE</string>
+    <string name="ranking">RANKING</string>
+    <string name="help">HELP</string>
+    <string name="logout">Logout</string>
+    <string name="nivel">Nivel</string>
 </resources>
