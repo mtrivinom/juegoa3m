@@ -33,6 +33,16 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+
+
 public class ActividadPuzzle extends AppCompatActivity {
 
     ArrayList<PiezaPuzzle> piezas;
@@ -81,8 +91,9 @@ public class ActividadPuzzle extends AppCompatActivity {
 
     }
 
+    //NUEVO PARA FIREBASE
     public void continuar() {
-        counter = counter +1; //Nivel
+        counter = counter + 1; // Nivel
         int longitudFiles;
         setContentView(R.layout.activity_puzzle);
 
@@ -90,6 +101,57 @@ public class ActividadPuzzle extends AppCompatActivity {
         final ImageView imageView = findViewById(R.id.imageView);
         final TextView textView = findViewById(R.id.level);
         textView.setText(Integer.toString(counter));
+
+        // Obtener la referencia al almacenamiento de Firebase
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+
+        // Obtener la referencia a la imagen almacenada en Firebase Storage
+        StorageReference imageRef = storageRef.child("gs://android-a3m.appspot.com/");
+
+
+        // Cargar la imagen desde Firebase Storage utilizando Glide
+        Glide.with(this)
+                .asBitmap()
+                .load(imageRef)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap originalBitmap, @Nullable Transition<? super Bitmap> transition) {
+                        secondChrono();
+
+                        // Setear la imagen en el ImageView
+                        imageView.setImageBitmap(originalBitmap);
+
+                        piezas = splitImage( 4 + counter * 2, 2 + counter, 2 + counter);
+
+                        TouchListener touchListener = new TouchListener(ActividadPuzzle.this);
+                        Collections.shuffle(piezas);
+                        for (PiezaPuzzle pieza : piezas) {
+                            pieza.setOnTouchListener(touchListener);
+                            layout.addView(pieza);
+                            // Aleatorizar piezas debajo de la pantalla
+                            RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) pieza.getLayoutParams();
+                            lParams.leftMargin = new Random().nextInt(layout.getWidth() - pieza.pieceWidth);
+                            lParams.topMargin = layout.getHeight() - pieza.pieceHeight;
+                            pieza.setLayoutParams(lParams);
+                        }
+                    }
+                });
+    }
+
+
+    /*
+    public void continuar() {
+        counter = counter +1; //Nivel
+        int longitudFiles;
+        setContentView(R.layout.activity_puzzle);
+
+
+        final RelativeLayout layout = findViewById(R.id.layout);
+        final ImageView imageView = findViewById(R.id.imageView);
+        final TextView textView = findViewById(R.id.level);
+        textView.setText(Integer.toString(counter));
+        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
 
         AssetManager assetManager = getAssets();
 
@@ -128,7 +190,7 @@ public class ActividadPuzzle extends AppCompatActivity {
             Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-
+*/
     private void setPicFromAsset(String assetName, ImageView imageView){
         //Cogemos dimensiones de la View
         int targetWidth = imageView.getWidth();

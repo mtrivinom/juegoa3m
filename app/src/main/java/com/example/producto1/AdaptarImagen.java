@@ -15,26 +15,31 @@ import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+
+import com.google.firebase.storage.StorageReference;
 
 public class AdaptarImagen extends BaseAdapter {
-
+    private final List<StorageReference> imageRefs;
+    private final Context context;
     private Context mContext;
-
     private AssetManager assetmanager;
 
     private String[] files;
 
-    public AdaptarImagen(Context c){
-        mContext = c;
-        assetmanager = mContext.getAssets();
-        try{
-            files = assetmanager.list("img");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public AdaptarImagen(Context context, List<StorageReference> imageRefs) {
+        this.context = context;
+        this.imageRefs = imageRefs;
     }
 
-    public int getCount() {return files.length;}
+    @Override
+    public int getCount() {
+        if (imageRefs != null) {
+            return imageRefs.size();
+        } else {
+            return 0;
+        }
+    }
 
     public Object getItem(int position){return null;}
 
