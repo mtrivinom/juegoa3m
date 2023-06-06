@@ -107,7 +107,7 @@ public class ActividadPuzzle extends AppCompatActivity {
         StorageReference storageRef = storage.getReference();
 
         // Obtener la referencia a la imagen almacenada en Firebase Storage
-        StorageReference imageRef = storageRef.child("gs://android-a3m.appspot.com/");
+        StorageReference imageRef = storageRef.child("gs://android-a3m.appspot.com");
 
 
         // Cargar la imagen desde Firebase Storage utilizando Glide

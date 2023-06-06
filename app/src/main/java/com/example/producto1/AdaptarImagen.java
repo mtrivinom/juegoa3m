@@ -17,7 +17,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+//Librerias para Firebase y Glide
+import com.bumptech.glide.Glide;
 import com.google.firebase.storage.StorageReference;
+import com.bumptech.glide.request.RequestListener;
+import androidx.annotation.Nullable;
+import android.graphics.drawable.Drawable;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.request.target.Target;
+import android.util.Log;
+
 
 public class AdaptarImagen extends BaseAdapter {
     private final List<StorageReference> imageRefs;
@@ -26,9 +35,11 @@ public class AdaptarImagen extends BaseAdapter {
     private AssetManager assetmanager;
 
     private String[] files;
+    private MainActivity mainActivity;
 
-    public AdaptarImagen(Context context, List<StorageReference> imageRefs) {
-        this.context = context;
+    public AdaptarImagen(MainActivity mainActivity, List<StorageReference> imageRefs) {
+        this.mainActivity = mainActivity;
+        this.context = mainActivity.getApplicationContext();
         this.imageRefs = imageRefs;
     }
 
@@ -48,35 +59,38 @@ public class AdaptarImagen extends BaseAdapter {
     //crea una nueva ImageView por cada objecto referenciado por el adaptador
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            final LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.grid_element, null);
         }
 
         final ImageView imageView = convertView.findViewById(R.id.gridImageview);
         imageView.setImageBitmap(null);
-        imageView.post(new Runnable(){
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            public void run(){
-                new AsyncTask<Void, Void, Void>(){
-                    private Bitmap bitmap;
+
+        // Obtener la referencia a la imagen en Firebase Storage
+        StorageReference imageRef = imageRefs.get(position % imageRefs.size());
+
+        // Descargar la imagen y cargarla en el ImageView utilizando Glide
+        Glide.with(context)
+                .asBitmap()
+                .load(imageRef)
+                .listener(new RequestListener<Bitmap>() { //NO SE YA QUE HACER CONTIGO!!!!
                     @Override
-                    protected Void doInBackground(Void... voids){
-                        bitmap = getPicFromAsset(imageView, files[position]);
-                        return null;
+                    public boolean onLoadFailed(@Nullable Exception e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                        Log.d("ImageLoad", "Failed to load image: " + imageRef.getName());
+                        return false;
                     }
 
                     @Override
-                    protected void onPostExecute(Void aVoid) {
-                        super.onPostExecute(aVoid);
-                        imageView.setImageBitmap(bitmap);
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                        Log.d("ImageLoad", "Image loaded successfully: " + imageRef.getName());
+                        return false;
                     }
-                }.execute();
-            }
-        });
+                })
+                .into(imageView);
 
         return convertView;
     }
+
 
     private Bitmap getPicFromAsset(ImageView imageView, String assetName) {
         //Coger las dimensiones de la View

@@ -24,9 +24,6 @@ import androidx.annotation.NonNull;
 import com.google.firebase.storage.ListResult;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-
-
-
 import java.io.IOException;
 import java.util.List;
 
@@ -62,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
         // Inicializar BBDD Firebase
         FirebaseApp.initializeApp(this);
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
         // Obtén una lista de las referencias a las imágenes en Firebase Storage
-        StorageReference imagesRef = storageRef.child("gs://android-a3m.appspot.com/");
+        StorageReference imagesRef = storageRef.child("gs://android-a3m.appspot.com");
 
         imagesRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
@@ -99,19 +97,6 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-
-                    // Procesar cada imagen dentro del bucle
-                    for (int i = 1; i <= imageRefs.size(); i++) {
-                        String imageName = "Foto" + i + ".jpg";
-                        StorageReference imageRef = storageRef.child(imageName);
-                        // Resto del código para procesar la imagen
-
-                        // Ejemplo de uso: cargar la imagen con Glide
-                        ImageView imageView = findViewById(R.id.imageView);
-                        Glide.with(MainActivity.this)
-                                .load(imageRef)
-                                .into(imageView);
-                    }
                 } else {
                     Toast.makeText(MainActivity.this, "No se encontraron imágenes", Toast.LENGTH_SHORT).show();
                 }
@@ -123,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
     public void AdminSQLiteOpenHelper() {
