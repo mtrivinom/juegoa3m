@@ -1,29 +1,27 @@
 package com.example.producto1;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-//Librerias para Firebase
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import androidx.annotation.NonNull;
-import com.google.firebase.storage.ListResult;
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -59,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
 
+    private DatabaseReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +110,31 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    //PRUBEA 2
+    //Descargar las imagenes de la Firebase Storage:
+    /* while (i <= 3) {
+        ConversorI = String.valueOf(i);
+        StorageReference StorageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://android-a3m.appspot.com/" + conversorI + ".jpg");
+        try {
+            File localfile = File.createTempFile("Foto" + conversorI, ".jpg");
+            StorageReference.getFile(localfile)
+                    .addOnSuccessListener(new onSuccessListener<FileDownloadTask.TaskSnapshot>(){
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot){
+
+                        }
+                    });
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+*/
+
+
+
+    /* NO USAMOS YA SQL
     public void AdminSQLiteOpenHelper() {
         AdminSQLiteOpenHelper dbHelper = new AdminSQLiteOpenHelper(this);      //Conexion al BBDDD
         SQLiteDatabase db = dbHelper.getWritableDatabase(); // Permiso para escribir en la BBDD
@@ -136,5 +160,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
+    }*/
 }
