@@ -40,4 +40,43 @@ public class RankingActividad extends AppCompatActivity {
             ;        }
 
     }
+
+    public void obtenerDatosfirebase(){
+        db.collection("users")
+                .orderBy("puntuacion")
+                .limit(10)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("datos firebase", document.getId() + " => " + document.getData());
+                                String tempString = document.getString("user") + " time: " + document.getString("puntuacion");
+                                //Log.d("tempString", tempString);
+                                listaFirebaseUsers.add(tempString);
+
+                            }
+                        } else {
+                            Log.w("datos firebase error", "Error getting documents.", task.getException());
+                        }
+                        rellenarAdapter();
+                    }
+                });
+
+    }
+
+    public void recorrerListaFirebase(){
+        for (int i=0; i<listaFirebaseUsers.size(); i++) {
+            Log.d("listaFirebaseUsers", listaFirebaseUsers.get(i));
+        }
+    }
+
+    public void rellenarAdapter(){
+        Log.d("Elemento de la lista", listaFirebaseUsers.get(0));
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listaFirebaseUsers); //creamos un adaptador
+        listView.setAdapter(adapter); //enviamos la listview con el adaptader para mostrar su contenido
+    }
+
+
 }

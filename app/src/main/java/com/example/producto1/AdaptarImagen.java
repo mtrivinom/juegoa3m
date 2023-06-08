@@ -80,7 +80,7 @@ public class AdaptarImagen extends BaseAdapter {
                         return false;
                     }
 
-                    @Override
+                    //@Override
                     public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
                         Log.d("ImageLoad", "Image loaded successfully: " + imageRef.getName());
                         return false;

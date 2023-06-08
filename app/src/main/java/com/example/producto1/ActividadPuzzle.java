@@ -92,6 +92,7 @@ public class ActividadPuzzle extends AppCompatActivity {
     }
 
     //NUEVO PARA FIREBASE
+
     public void continuar() {
         counter = counter + 1; // Nivel
         int longitudFiles;
